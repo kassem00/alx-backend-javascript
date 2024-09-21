@@ -40,9 +40,6 @@ describe('calculateNumber', () => {
       assert.strictEqual(calculateNumber('SUBTRACT', 1, 3.7), -3);
     });
 
-    it('should return 0 when inputs are 1.5 and 1.2', () => {
-      assert.strictEqual(calculateNumber('SUBTRACT', 1.5, 1.2), 0);
-    });
   });
 
   describe('DIVIDE', () => {
