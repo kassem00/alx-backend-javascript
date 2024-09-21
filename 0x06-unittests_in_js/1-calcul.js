@@ -2,8 +2,9 @@
 
 function calculateNumber(type, a, b) {
     switch (type){
-    case "SUM":
-	Return Math.round(a) + Math.round(b);
+
+    case 'SUM':
+	return Math.round(a) + Math.round(b);
     case "SUBTRACT":
 	return Math.round(a) - Math.round(b);
     case "DIVIDE":
