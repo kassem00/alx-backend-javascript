@@ -1,7 +1,7 @@
-const { spawn } = require('child_process');
+const x = require('child_process');
 
-let displayMessage = (data) => {
-    process.stdout.write(`${data}`);
-}
+const displayMessage = (data) => {
+  x.process.stdout.write(`${data}`);
+};
 
 module.exports = displayMessage;
