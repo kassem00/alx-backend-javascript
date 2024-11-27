@@ -1,4 +1,4 @@
-const { spawn } = require('node:child_process');
+const { spawn } = require('child_process');
 
 let displayMessage = (data) => {
     process.stdout.write(`${data}`);
