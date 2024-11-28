@@ -3,9 +3,8 @@
  * @param {string} message - The message to log.
  * @returns {void}
  */
-const displayMessage = (data) => {
-  process.stdout.write(`${data}`);
-  process.stdout.write('\n');
+const displayMessage = (message) => {
+  console.log(message);  // Use console.log() to match the test's expectations
 };
 
 /**
@@ -13,5 +12,4 @@ const displayMessage = (data) => {
  * @module displayMessage
  * @function
  */
-// Default module export.
 module.exports = displayMessage;
