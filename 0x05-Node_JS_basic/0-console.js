@@ -4,7 +4,7 @@
  * @returns {void}
  */
 const displayMessage = (message) => {
-  console.log(message);  // Use console.log() to match the test's expectations
+  console.log(message);
 };
 
 /**
