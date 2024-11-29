@@ -4,8 +4,6 @@ export default function createIteratorObject(report) {
     for (let nu = 0; nu < report.allEmployees[department].length; nu += 1) {
       ele.push(report.allEmployees[department][nu]);
     }
-  }  
+  }
   return ele;
 }
-
-
