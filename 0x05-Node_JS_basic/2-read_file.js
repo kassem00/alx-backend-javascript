@@ -25,7 +25,7 @@ function countStudents(filePath) {
 
     // Process CSV data
     const students = rows.slice(1).map((row) => {
-      const [firstname, lastname, age, field] = row.split(',');
+      const [firstname, , , field] = row.split(','); // Removed lastname and age
       return { firstname, field };
     });
 
@@ -45,8 +45,11 @@ function countStudents(filePath) {
 
     // Display the number of students in each field
     for (const field in fieldCounts) {
-      const fieldList = fieldCounts[field];
-      console.log(`Number of students in ${field}: ${fieldList.length}. List: ${fieldList.join(', ')}`);
+      // Check if field is a direct property (not from prototype)
+      if (Object.prototype.hasOwnProperty.call(fieldCounts, field)) {
+        const fieldList = fieldCounts[field];
+        console.log(`Number of students in ${field}: ${fieldList.length}. List: ${fieldList.join(', ')}`);
+      }
     }
   } catch (error) {
     console.log('Cannot load the database');
