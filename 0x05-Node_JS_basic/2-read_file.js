@@ -1,45 +1,56 @@
 const fs = require('fs');
+const path = require('path');
 
-function countStudents(file_name) {
-  let dat;
+function countStudents(filePath) {
+  const absolutePath = path.resolve(filePath);
+  console.log(`Checking if file exists at: ${absolutePath}`);
 
-  try {
-    // Attempt to read the file synchronously
-    dat = fs.readFileSync(file_name, 'utf8');
-  } catch (err) {
-    // If there's an error reading the file, throw an error with the message
-    throw new Error('Cannot load the database');
+  // Check if the file exists
+  if (!fs.existsSync(absolutePath)) {
+    console.log('File does not exist');
+    return; // Gracefully handle the missing file
   }
 
-  const lines = dat.split('\n'); // Split data into lines
-  const departments = {}; // Object to store department names as keys and student lists as values
+  // If file exists, try to read it synchronously
+  try {
+    const data = fs.readFileSync(absolutePath, 'utf-8');
 
-  // Loop through the lines (skipping the header)
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
+    // Split the data into rows
+    const rows = data.split('\n').filter((row) => row.trim() !== '');
 
-    // Skip empty lines
-    if (line === '') continue;
-
-    const [firstname, lastname, age, field] = line.split(',');
-
-    // If the department (field) doesn't exist, initialize it with an empty array
-    if (!departments[field]) {
-      departments[field] = [];
+    if (rows.length === 0) {
+      console.log('No data available in the file');
+      return;
     }
 
-    // Add the student's name to the appropriate department
-    departments[field].push(`${firstname} ${lastname}`);
-  }
+    // Process CSV data
+    const students = rows.slice(1).map((row) => {
+      const [firstname, lastname, age, field] = row.split(',');
+      return { firstname, field };
+    });
 
-  const numberOfStudents = Object.values(departments).flat().length;
-  console.log(`Number of students: ${numberOfStudents}`);
+    // Count students in each field
+    const fieldCounts = students.reduce((acc, student) => {
+      if (acc[student.field]) {
+        acc[student.field].push(student.firstname);
+      } else {
+        acc[student.field] = [student.firstname];
+      }
+      return acc;
+    }, {});
 
-  // Output the result
-  for (const [field, students] of Object.entries(departments)) {
-    console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
+    // Display the total number of students
+    const totalStudents = students.length;
+    console.log(`Number of students: ${totalStudents}`);
+
+    // Display the number of students in each field
+    for (const field in fieldCounts) {
+      const fieldList = fieldCounts[field];
+      console.log(`Number of students in ${field}: ${fieldList.length}. List: ${fieldList.join(', ')}`);
+    }
+  } catch (error) {
+    console.log('Cannot load the database');
   }
 }
 
-// Export the function so it can be used in other files
 module.exports = countStudents;
