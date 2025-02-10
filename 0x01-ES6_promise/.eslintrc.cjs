@@ -9,7 +9,7 @@ module.exports = {
         js: "always",
       },
     ],
-    "no-console": "off",  // Disable no-console rule
+    "no-console": "off",
   },
 
 };
