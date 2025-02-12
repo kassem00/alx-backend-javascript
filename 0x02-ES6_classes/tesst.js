@@ -1,12 +1,10 @@
-import ClassRoom from "./0-classroom";
-
 export default class Building {
   constructor(sqft) {
     this._sqft = sqft;
-    try {
+    try{
       this.evacuationWarningMessage()
     }
-    catch {
+    catch{
       throw new Error("Class extending Building must override evacuationWarningMessage");
     }
   }
@@ -18,10 +16,5 @@ export default class Building {
   get sqftq() {
     return this._sqft;
   }
-  
-  evacuationWarningMessage(){
 
-  }
 }
-
-
