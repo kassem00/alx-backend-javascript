@@ -1,14 +1,9 @@
-import ClassRoom from "./0-classroom";
-
 export default class Building {
   constructor(sqft) {
+    if (new.target === Building) {
+      throw new Error('Cannot instantiate an abstract class');
+    }
     this._sqft = sqft;
-    try {
-      this.evacuationWarningMessage()
-    }
-    catch {
-      throw new Error("Class extending Building must override evacuationWarningMessage");
-    }
   }
 
   set sqftq(v) {
@@ -18,10 +13,8 @@ export default class Building {
   get sqftq() {
     return this._sqft;
   }
-  
-  evacuationWarningMessage(){
 
+  static evacuationWarningMessage() {
+    throw new Error('Class extending Building must override evacuationWarningMessage');
   }
 }
-
-
