@@ -1,5 +1,3 @@
-import ClassRoom from './3-currency';
-
 export default class Currency {
   constructor(amount, currency) {
     this._amount = amount;
