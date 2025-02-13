@@ -14,13 +14,13 @@ export default class EVCar extends Car {
     this._range = value;
   }
 
-  // Override Symbol.species to ensure cloning returns EVCar instead of Car
+  // Override Symbol.species so cloning returns Car instead of EVCar
   static get [Symbol.species]() {
-    return this; // Ensures cloning returns EVCar instances
+    return Car; // Ensure `cloneCar()` returns a `Car` instance
   }
 
   cloneCar() {
-    const Species = this.constructor[Symbol.species]; // Ensures it uses EVCar[Symbol.species]
-    return new Species(this.brand, this.motor, this.color, this.range);
+    const Species = this.constructor[Symbol.species]; // Uses EVCar[Symbol.species]
+    return new Species(this.brand, this.motor, this.color);
   }
 }
